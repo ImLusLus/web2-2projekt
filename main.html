@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Loša kontrola pristupa</title>
+</head>
+
+<body>
+  <label>
+    Omogući lošu kontrolu pristupa:
+    <input type="checkbox" id="controlCheck">
+  </label>
+
+  <div id="contentContainer"></div>
+
+  <section id="adminSection" style="display: none;">
+    <h2>Sekcija koju vidi samo administrator</h2>
+    <p>Ovu sekciju smije vidjeti samo administrator!</p>
+  </section>
+
+  <script>
+    const controlCheck = document.getElementById('controlCheck');
+    const contentContainer = document.getElementById('contentContainer');
+    const adminSection = document.getElementById('adminSection');
+    const users = [
+      { id: 500, username: 'boss@hr.hr', password: 'boss123', role: 'admin' },
+      { id: 502, username: 'manager@hr.hr', password: 'manager123', role: 'user' }
+    ];
+
+    function getCurrentUser() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = parseInt(urlParams.get('user_id'));
+
+      const currentUser = users.find(user => user.id === userId);
+
+      return currentUser;
+    }
+
+    function displayContent() {
+      const currentUser = getCurrentUser();
+
+      if (currentUser) {
+        if (currentUser.role === 'admin') {
+          contentContainer.innerHTML = `<h1>Stranica za administratora</h1>`;
+        } else {
+          contentContainer.innerHTML = `<h1>Stranica za korisnika</h1>`;
+        }
+      } else {
+        alert("Nedozvoljen pristup!");
+        window.location.href = `login.html`;
+      }
+    }
+
+    function updateAdminSectionVisibility() {
+      const currentUser = getCurrentUser();
+
+      if (controlCheck.checked && currentUser && currentUser.role === 'admin') {
+        adminSection.style.display = 'block';
+      } else {
+        adminSection.style.display = 'none';
+      }
+    }
+
+    displayContent();
+
+    controlCheck.checked = false;
+
+    controlCheck.addEventListener('change', function () {
+      updateAdminSectionVisibility();
+    });
+  </script>
+
+</body>
+
+</html>

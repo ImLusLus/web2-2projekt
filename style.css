@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+section {
+  margin: 20px;
+}
+
+form {
+  align-items: center;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  align-items: center;
+}
+
+textarea {
+  width: 30%;
+  padding: 1px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+button, a {
+  padding: 10px;
+  background-color: lightcoral;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+button:hover, a:hover {
+  background-color: crimson;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#controlCheck {
+  margin-left: 5px;
+}
